@@ -4,6 +4,8 @@ import * as Font from 'expo-font';
 import React, { useState } from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { ApplicationProvider, Layout, Text } from '@ui-kitten/components';
+import { mapping, light as darkTheme } from '@eva-design/eva';
 
 import AppNavigator from './navigation/AppNavigator';
 
@@ -20,10 +22,12 @@ export default function App(props) {
     );
   } else {
     return (
-      <View style={styles.container}>
-        {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-        <AppNavigator />
-      </View>
+      <ApplicationProvider mapping={mapping} theme={darkTheme}>
+        <View style={styles.container}>
+          {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+          <AppNavigator />
+        </View>
+      </ApplicationProvider>
     );
   }
 }
