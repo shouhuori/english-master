@@ -17,11 +17,14 @@
     "@expo/vector-icons": "~10.0.0",
     "@react-navigation/web": "~1.0.0-alpha.9",
     "@ui-kitten/components": "^4.3.2",
+    "axios": "^0.19.2",
+    "dompurify": "^2.0.7",
     "expo": "~36.0.0",
     "expo-asset": "~8.0.0",
     "expo-constants": "~8.0.0",
     "expo-font": "~8.0.0",
     "expo-web-browser": "~8.0.0",
+    "jsdom": "^16.0.1",
     "lodash": "^4.17.15",
     "memory-scheduler": "^1.0.1",
     "react": "~16.9.0",
@@ -39,10 +42,10 @@
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
-    "babel-preset-expo": "~8.0.0",
-    "jest-expo": "~36.0.1",
     "@types/react": "~16.9.0",
     "@types/react-native": "~0.60.23",
+    "babel-preset-expo": "~8.0.0",
+    "jest-expo": "~36.0.1",
     "typescript": "~3.6.3"
   },
   "private": true

@@ -1,0 +1,19 @@
+{
+  "name": {
+    "en": "Urban",
+    "zh-CN": "Urban",
+    "zh-TW": "Urban"
+  },
+  "options": {
+    "resultnum": {
+      "en": "Show",
+      "zh-CN": "结果数量",
+      "zh-TW": "結果數量"
+    },
+    "resultnum_unit": {
+      "en": "results",
+      "zh-CN": "个",
+      "zh-TW": "個"
+    }
+  }
+}
