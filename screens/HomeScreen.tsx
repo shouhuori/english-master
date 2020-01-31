@@ -1,7 +1,5 @@
-import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
 import { Layout,Button ,Input} from '@ui-kitten/components';
-import {search } from '../components/dictionaries/bing/engine'
 import {
   Image,
   Platform,
@@ -13,20 +11,8 @@ import {
   View,
 } from 'react-native';
 
-const DICT_LINK =  'https://cn.bing.com/dict/clientsearch?mkt=zh-CN&setLang=zh&form=BDVEHC&ClientVer=BDDTV3.5.1.4320&q='
 
-async function getMoviesFromApi(text) {
-  try {
-    let response = await fetch(
-      DICT_LINK + encodeURIComponent(text.replace(/\s+/g, ' '))
-    );
-    return response.text();
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-export default function HomeScreen() {
+export default function HomeScreen(props) {
   console.log('test');
   const [value, setValue] = React.useState('');
   return (
@@ -45,12 +31,8 @@ export default function HomeScreen() {
       </ScrollView>
 
       <View style={styles.tabBarInfoContainer}>
-        <Button onPress={async() => {
-          console.log('=============================')
-          let data = await getMoviesFromApi('love');
-          // data = new DOMParser().parseFromString(data, 'text/html');
-          console.log(data);
-          console.log('=============================')
+        <Button onPress={() => {
+         props.navigation.navigate('Word')
         }}>OK</Button>
       </View>
     </Layout>

@@ -4,10 +4,11 @@ import * as Font from 'expo-font';
 import React, { useState } from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { ApplicationProvider, Layout, Text } from '@ui-kitten/components';
+import { ApplicationProvider, Layout,Text } from '@ui-kitten/components';
 import { mapping, light as darkTheme } from '@eva-design/eva';
 
-import AppNavigator from './navigation/AppNavigator';
+// import AppNavigator from './navigation/AppNavigator';
+import {AppNavigator} from './navigation/NewNavigator';
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
@@ -23,10 +24,12 @@ export default function App(props) {
   } else {
     return (
       <ApplicationProvider mapping={mapping} theme={darkTheme}>
-        <View style={styles.container}>
-          {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          <AppNavigator />
-        </View>
+        <Layout style={{ flex: 1 }}>
+          <View style={styles.container}>
+            {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+            <AppNavigator />
+          </View>
+        </Layout>
       </ApplicationProvider>
     );
   }

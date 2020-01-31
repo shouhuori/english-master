@@ -1361,6 +1361,13 @@
     hoist-non-react-statics "^3.2.1"
     lodash.merge "^4.6.1"
 
+"@ui-kitten/eva-icons@^4.3.2":
+  version "4.3.2"
+  resolved "https://registry.npm.taobao.org/@ui-kitten/eva-icons/download/@ui-kitten/eva-icons-4.3.2.tgz#2c6810c9649903b529acf96a3c9c377f7373cf15"
+  integrity sha1-LGgQyWSZA7UprPlqPJw3f3NzzxU=
+  dependencies:
+    react-native-eva-icons "1.1.0"
+
 "@unimodules/core@~5.0.0":
   version "5.0.0"
   resolved "https://registry.npm.taobao.org/@unimodules/core/download/@unimodules/core-5.0.0.tgz#e1e3ca3f91f3d27dbc93c6eebc03a40c711da755"
@@ -2713,6 +2720,14 @@ expo-asset@~8.0.0:
     blueimp-md5 "^2.10.0"
     path-browserify "^1.0.0"
     url-parse "^1.4.4"
+
+expo-av@~8.0.0:
+  version "8.0.0"
+  resolved "https://registry.npm.taobao.org/expo-av/download/expo-av-8.0.0.tgz#fc892a0e4ff7e1eff630002e0652da3125d18113"
+  integrity sha1-/IkqDk/34e/2MAAuBlLaMSXRgRM=
+  dependencies:
+    lodash "^4.17.15"
+    nullthrows "^1.1.0"
 
 expo-constants@~8.0.0:
   version "8.0.0"
@@ -5463,6 +5478,11 @@ react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.npm.taobao.org/react-lifecycles-compat/download/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha1-TxonOv38jzSIqMUWv9p4+HI1I2I=
+
+react-native-eva-icons@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.npm.taobao.org/react-native-eva-icons/download/react-native-eva-icons-1.1.0.tgz#323e55d759187edc216d049e7c0012a27383e0ed"
+  integrity sha1-Mj5V11kYftwhbQSefAASonOD4O0=
 
 react-native-gesture-handler@~1.5.0:
   version "1.5.3"
