@@ -5,7 +5,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { BottomNavigation, BottomNavigationTab, Layout, Text } from '@ui-kitten/components';
 import HomeScreen from '../screens/HomeScreen';
 import WordScreen from '../screens/WordScreen';
-
+import {StyleSheet} from 'react-native';
 
 
 const HomeStack = createStackNavigator(
@@ -36,10 +36,10 @@ const TabBarComponent = ({ navigation }) => {
 
   return (
     <SafeAreaView>
-      <BottomNavigation selectedIndex={navigation.state.index} onSelect={onSelect}>
-        <BottomNavigationTab title='起步'/>
-        <BottomNavigationTab title='单词'/>
-        <BottomNavigationTab title='设置'/>
+      <BottomNavigation  selectedIndex={navigation.state.index} onSelect={onSelect}>
+        <BottomNavigationTab  titleStyle={styles.tab}  title='起步'/>
+        <BottomNavigationTab titleStyle={styles.tab} title='单词'/>
+        <BottomNavigationTab titleStyle={styles.tab} title='设置'/>
       </BottomNavigation>
     </SafeAreaView>
   );
@@ -52,5 +52,12 @@ const TabNavigator = createBottomTabNavigator({
 }, {
   tabBarComponent: TabBarComponent,
 });
+
+const styles = StyleSheet.create({
+  tab:{
+    fontSize:15
+  }
+
+})
 
 export  const AppNavigator = createAppContainer(TabNavigator);

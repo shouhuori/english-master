@@ -24,6 +24,10 @@ const  getWord = async(text) =>{
   }
 }
 
+const playSound = ()=>{
+
+}
+
 /**
  * 发音 
  * @param param0 
@@ -67,7 +71,7 @@ const Sens = ({data})=>{
 /**
  * 背单词页面
  */
-export default async function WordScreen(props) {
+export default  function WordScreen(props) {
   const [value, setValue] = React.useState('');
 
   return (
