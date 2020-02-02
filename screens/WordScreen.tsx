@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {Text,Divider,Icon, Layout,Button ,Input,TopNavigationAction,TopNavigation} from '@ui-kitten/components';
 import {
   Image,
@@ -9,8 +9,33 @@ import {
   Alert,
   View,
 } from 'react-native';
+import {Audio} from 'expo-av';
+import * as SQLite from 'expo-sqlite';
 
+const soundObject = new Audio.Sound();
 
+const db  = SQLite.openDatabase('beDict');
+
+const testDb = async() => {
+   db.transaction(tx => {
+    tx.executeSql("CREATE TABLE  IF NOT EXISTS word_learn ( \
+    ID INT PRIMARY KEY NOT NULL,\
+    due_date CHAR(50)  NOT NULL,\
+    title CHAR(50)  NOT NULL,\
+    content TEXT  NOT NULL,\
+    create_date CHAR  NOT NULL,\
+    status INT  NOT NULL,\
+    )\
+  ", []
+   );
+    tx.executeSql("insert into word_learn (due_date, title,content,create_date,status) values (?,?,?,?,?)", [0, 1,2,3,4]);
+    tx.executeSql("select name from sqlite_master where type='table' order by name;",[],(_, { rows })=>{
+      console.log(rows)
+      console.log('work')
+   })
+  })
+
+}
 const DICT_LINK = 'http://localhost:3000/find/token';
 
 const  getWord = async(text) =>{
@@ -24,8 +49,16 @@ const  getWord = async(text) =>{
   }
 }
 
-const playSound = ()=>{
+const playSound = async (uri) => {
+  try {
+    const { sound: soundObject, status } = await Audio.Sound.createAsync(
+      { uri: uri },
+      { shouldPlay: true })
 
+    await soundObject.playAsync();
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 /**
@@ -45,26 +78,22 @@ const Phsym = ({ data }) => {
 
 const Define = ({data})=>{
   return data.map((i, index) =>
-  <View>
     <Text
       key={index}
       style={styles.phsym}
       category='p1'>{i.pos}{i.def}
     </Text>
-</View>
   )
 }
 
 
 const Sens = ({data})=>{
   return data.map((i, index) =>
-  <View>
     <Text
       key={index}
       style={styles.phsym}
       category='p1'>{i}
     </Text>
-</View>
 )
 }
 
@@ -74,11 +103,13 @@ const Sens = ({data})=>{
 export default  function WordScreen(props) {
   const [value, setValue] = React.useState('');
 
+  useEffect(()=>{
+    playSound(data.audio.uk)
+    testDb();
+  })
   return (
     <Layout style={styles.container}>
-      <TopNavigation
-        title='熟悉单词'
-      />
+      <TopNavigation title='熟悉单词'/>
       <ScrollView
         style={styles.container}
         contentContainerStyle={{}}>

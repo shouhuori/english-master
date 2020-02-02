@@ -35,12 +35,14 @@
     "react-native-gesture-handler": "~1.5.0",
     "react-native-reanimated": "~1.4.0",
     "react-native-screens": "2.0.0-alpha.12",
+    "react-native-sqlite-storage": "^4.1.0",
     "react-native-svg": "9.13.3",
     "react-native-web": "~0.11.7",
     "react-navigation": "~4.0.10",
     "react-navigation-stack": "~1.10.3",
     "react-navigation-tabs": "~2.6.2",
-    "stopword": "^0.3.4"
+    "stopword": "^0.3.4",
+    "typeorm": "0.2.21"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
