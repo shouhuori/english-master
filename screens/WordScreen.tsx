@@ -14,22 +14,13 @@ import * as SQLite from 'expo-sqlite';
 
 const soundObject = new Audio.Sound();
 
-const db  = SQLite.openDatabase('beDict');
+const db  = SQLite.openDatabase('beDict.db');
 
 const testDb = async() => {
    db.transaction(tx => {
-    tx.executeSql("CREATE TABLE  IF NOT EXISTS word_learn ( \
-    ID INT PRIMARY KEY NOT NULL,\
-    due_date CHAR(50)  NOT NULL,\
-    title CHAR(50)  NOT NULL,\
-    content TEXT  NOT NULL,\
-    create_date CHAR  NOT NULL,\
-    status INT  NOT NULL,\
-    )\
-  ", []
-   );
+    tx.executeSql("CREATE TABLE  IF NOT EXISTS word_learn (  ID INT PRIMARY KEY NOT NULL,due_date CHAR(50)  NOT NULL,title CHAR(50)  NOT NULL,content TEXT  NOT NULL, create_date CHAR  NOT NULL,status INT  NOT NULL)", []);
     tx.executeSql("insert into word_learn (due_date, title,content,create_date,status) values (?,?,?,?,?)", [0, 1,2,3,4]);
-    tx.executeSql("select name from sqlite_master where type='table' order by name;",[],(_, { rows })=>{
+    tx.executeSql("select * from word_learn;",[],(_, { rows })=>{
       console.log(rows)
       console.log('work')
    })
@@ -49,6 +40,10 @@ const  getWord = async(text) =>{
   }
 }
 
+/**
+ * 播放声音 
+ * @param uri 
+ */
 const playSound = async (uri) => {
   try {
     const { sound: soundObject, status } = await Audio.Sound.createAsync(
@@ -86,7 +81,23 @@ const Define = ({data})=>{
   )
 }
 
+ const add = (text) => {
+    // is text empty?
+    if (text === null || text === "") {
+      return false;
+    }
 
+    db.transaction(
+      tx => {
+        tx.executeSql("insert into words (title) values (?)", ['1']);
+        tx.executeSql("select * from words", [], (_, { rows }) =>
+          console.log(JSON.stringify(rows))
+        );
+      },
+      null,
+      );
+  }
+  
 const Sens = ({data})=>{
   return data.map((i, index) =>
     <Text
@@ -104,8 +115,9 @@ export default  function WordScreen(props) {
   const [value, setValue] = React.useState('');
 
   useEffect(()=>{
-    playSound(data.audio.uk)
-    testDb();
+    db.transaction(tx => {
+      tx.executeSql("create table if not exists  words (id integer primary key not null,due_date text,title varchar,content text, create_date varchar,status int);");
+    })
   })
   return (
     <Layout style={styles.container}>
@@ -115,7 +127,7 @@ export default  function WordScreen(props) {
         contentContainerStyle={{}}>
       <Text
         style={styles.titleLabel}
-        category='h4'>{data.title}
+        category='h1'>{data.title}
       </Text>
       <Phsym data={data.phsym} />
       <Define data={data.cdef} />
@@ -124,9 +136,11 @@ export default  function WordScreen(props) {
       </ScrollView>
       <View style={styles.tabBarInfoContainer}>
         <View style={styles.buttonGroup}>
-          <Button style={styles.button} appearance='filled'>陌生</Button>
-          <Button style={styles.button} appearance='outline'>认识</Button>
-          <Button style={styles.button} appearance='ghost'>掌握</Button>
+          <Button style={styles.button} onPress={()=>{
+            add('test');
+          }} appearance='filled'>陌生</Button>
+          <Button style={styles.button} appearance='outline'>熟悉</Button>
+          <Button style={styles.button} appearance='ghost'>移除</Button>
         </View>
       </View>
     </Layout>
