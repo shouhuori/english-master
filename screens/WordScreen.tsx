@@ -10,9 +10,11 @@ import {
   View,
 } from 'react-native';
 import {Audio} from 'expo-av';
+import ms from '../components/ms'
 import * as SQLite from 'expo-sqlite';
 
 const db  = SQLite.openDatabase('beDict.db');
+const MS = new ms();
 
 const DICT_LINK = 'http://localhost:3000/find/token';
 
@@ -68,22 +70,66 @@ const Define = ({data})=>{
   )
 }
 
- const add = (text) => {
-    // is text empty?
-    if (text === null || text === "") {
-      return false;
-    }
-
+/**
+ * 添加单词 
+ * @param data
+ */
+const addWord = (data,score) => {
+  const check = new Promise((resolve, reject) => {
     db.transaction(
       tx => {
-        tx.executeSql("insert into words (title) values (?)", ['1']);
+        tx.executeSql("select * from words where title = ?", [data.title], (_, { rows }) =>
+          resolve(rows._array)
+        );
+      }
+    )
+  });
+
+  check.then((rows) => {
+    console.log(rows);
+    // 添加全新单词
+    if (rows.length < 1) {
+    const old = MS.getProgress(0, new Date());
+    const cal = MS.calculate(score, old, new Date());
+      db.transaction(
+        tx => {
+          tx.executeSql("insert into words (title,progress,due_date,content,create_date,update_date,status) values (?,?,?,?,?,?,?)", [
+            data.title,
+            cal.progress,//progress
+            cal.date,//due_data
+            JSON.stringify(data),
+            new Date(),
+            new Date(),
+            1,
+          ]);
+          tx.executeSql("select * from words", [], (_, { rows }) =>
+            console.log(JSON.stringify(rows))
+          );
+        },
+        null,
+      );
+      return;
+    }
+    // 更新已有单词分数
+    const id = rows[0].id
+    const old = MS.getProgress(rows[0].progress, rows[0].due_date);
+    const cal = MS.calculate(score, old, new Date());
+    console.log('========================');
+    console.log(cal);
+    console.log('========================');
+    db.transaction(
+      tx=>{
+        tx.executeSql("update words set progress = ? ,due_date = ?,update_date =? where id = ? ", [cal.progress, cal.date, new Date(), id])
         tx.executeSql("select * from words", [], (_, { rows }) =>
           console.log(JSON.stringify(rows))
         );
-      },
-      null,
-      );
-  }
+      }
+
+    )
+
+  })
+
+}
   
 const Sens = ({data})=>{
   return data.map((i, index) =>
@@ -103,7 +149,8 @@ export default  function WordScreen(props) {
 
   useEffect(()=>{
     db.transaction(tx => {
-      tx.executeSql("create table if not exists  words (id integer primary key not null,progress text,due_date text,title varchar,content text, create_date varchar,status int);");
+      tx.executeSql("drop table words");
+      tx.executeSql("create table if not exists words (id integer primary key not null,progress int,due_date text,title varchar,content text,update_date varchar,create_date varchar,status int);");
     })
   })
   return (
@@ -123,10 +170,8 @@ export default  function WordScreen(props) {
       </ScrollView>
       <View style={styles.tabBarInfoContainer}>
         <View style={styles.buttonGroup}>
-          <Button style={styles.button} onPress={()=>{
-            add('test');
-          }} appearance='filled'>陌生</Button>
-          <Button style={styles.button} appearance='outline'>熟悉</Button>
+          <Button style={styles.button} onPress={()=>{addWord(data,0);}} appearance='filled'>陌生</Button>
+          <Button style={styles.button} appearance='outline' onPress={()=>{addWord(data,2)}}>熟悉</Button>
           <Button style={styles.button} appearance='ghost'>移除</Button>
         </View>
       </View>
