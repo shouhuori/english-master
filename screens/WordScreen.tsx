@@ -12,21 +12,8 @@ import {
 import {Audio} from 'expo-av';
 import * as SQLite from 'expo-sqlite';
 
-const soundObject = new Audio.Sound();
-
 const db  = SQLite.openDatabase('beDict.db');
 
-const testDb = async() => {
-   db.transaction(tx => {
-    tx.executeSql("CREATE TABLE  IF NOT EXISTS word_learn (  ID INT PRIMARY KEY NOT NULL,due_date CHAR(50)  NOT NULL,title CHAR(50)  NOT NULL,content TEXT  NOT NULL, create_date CHAR  NOT NULL,status INT  NOT NULL)", []);
-    tx.executeSql("insert into word_learn (due_date, title,content,create_date,status) values (?,?,?,?,?)", [0, 1,2,3,4]);
-    tx.executeSql("select * from word_learn;",[],(_, { rows })=>{
-      console.log(rows)
-      console.log('work')
-   })
-  })
-
-}
 const DICT_LINK = 'http://localhost:3000/find/token';
 
 const  getWord = async(text) =>{
@@ -116,7 +103,7 @@ export default  function WordScreen(props) {
 
   useEffect(()=>{
     db.transaction(tx => {
-      tx.executeSql("create table if not exists  words (id integer primary key not null,due_date text,title varchar,content text, create_date varchar,status int);");
+      tx.executeSql("create table if not exists  words (id integer primary key not null,progress text,due_date text,title varchar,content text, create_date varchar,status int);");
     })
   })
   return (
