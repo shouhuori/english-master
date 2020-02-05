@@ -17,6 +17,7 @@ export default class ms {
   }
 
 // s 0 = fail, 1 = unsure, 2 = sure
+// progress 大于等于6 无需在学
   calculate = (s:number, { progress }, nowDate:Date) => {
     let now = secondToDay(nowDate)
     const correct = s === this.scroreToProgressChange.length - 1;
