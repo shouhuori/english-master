@@ -145,6 +145,7 @@ export default  function WordScreen(props) {
   const [word, setWord] = React.useState(words[0]);
 
 
+  let _listView;
 
   useEffect(()=>{
     db.transaction(tx => {
@@ -154,7 +155,7 @@ export default  function WordScreen(props) {
 
   useEffect(()=>{
     if(wordNow > words.length-1){
-      Alert.alert('达到了','My Alert Msg');
+      Alert.alert('恭喜','单词已背诵完毕');
     }else{
       setWord(words[wordNow])
     }
@@ -168,26 +169,29 @@ export default  function WordScreen(props) {
   const nextWord = (score) => {
     addWord(word,score)
     setWordNow(wordNow + 1);
+    _listView.scrollTo({ y: 0, animated: false })
+
   }
 
   return (
     <Layout style={styles.container}>
       <TopNavigation title='熟悉单词'/>
       <ScrollView
+      ref={ref => _listView = ref}
         style={styles.container}
         contentContainerStyle={{}}>
-      <Text
+      <Text 
         style={styles.titleLabel}
         category='h1'>{word.title}
       </Text>
-      <Phsym data={word.phsym} />
+      <Phsym  data={word.phsym} />
       <Define data={word.cdef} />
       <Divider/>
       <Sens data={word.sens} />
       </ScrollView>
-      <View style={styles.tabBarInfoContainer}>
+      <View  style={styles.tabBarInfoContainer}>
         <View style={styles.buttonGroup}>
-          <Button style={styles.button} onPress={()=>{
+          <Button  style={styles.button} onPress={()=>{
             nextWord(0);
             }} appearance='filled'>陌生</Button>
 
