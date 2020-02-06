@@ -4,7 +4,7 @@ import {
   Image,
   Platform,
   ScrollView,
- Dimensions,
+  Dimensions,
   StyleSheet,
   TouchableOpacity,
   Alert,
@@ -145,6 +145,7 @@ export default  function WordScreen(props) {
   const [word, setWord] = React.useState(words[0]);
   const [hiddenMean, setHiddenMean] = React.useState(true);
   const [hiddenButtonGroup, setHiddenButtonGroup] = React.useState(true);
+  let title = wordNow+1 +'/' + words.length;
 
 
 
@@ -158,6 +159,7 @@ export default  function WordScreen(props) {
 
   useEffect(()=>{
     if(wordNow > words.length-1){
+      setWordNow(wordNow-1)
       Alert.alert('恭喜','单词已背诵完毕');
     }else{
       setWord(words[wordNow])
@@ -189,7 +191,7 @@ export default  function WordScreen(props) {
 
   return (
     <Layout style={styles.container}>
-      <TopNavigation title='熟悉单词'/>
+      <TopNavigation title={title}/>
       <ScrollView
         ref={ref => _listView = ref}
         style={styles.container}
