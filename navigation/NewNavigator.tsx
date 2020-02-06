@@ -36,7 +36,7 @@ const TabBarComponent = ({ navigation }) => {
 
   return (
     <SafeAreaView>
-      <BottomNavigation  selectedIndex={navigation.state.index} onSelect={onSelect}>
+      <BottomNavigation indicatorStyle={styles.indicator}  selectedIndex={navigation.state.index} onSelect={onSelect}>
         <BottomNavigationTab  titleStyle={styles.tab}  title='起步'/>
         <BottomNavigationTab titleStyle={styles.tab} title='单词'/>
         <BottomNavigationTab titleStyle={styles.tab} title='设置'/>
@@ -56,6 +56,9 @@ const TabNavigator = createBottomTabNavigator({
 const styles = StyleSheet.create({
   tab:{
     fontSize:15
+  },
+  indicator:{
+    bottom:0
   }
 
 })
