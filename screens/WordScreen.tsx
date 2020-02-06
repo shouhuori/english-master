@@ -4,6 +4,7 @@ import {
   Image,
   Platform,
   ScrollView,
+ Dimensions,
   StyleSheet,
   TouchableOpacity,
   Alert,
@@ -96,7 +97,6 @@ const addWord = (data,score) => {
   });
 
   check.then((rows) => {
-    console.log(rows);
     // 添加全新单词
     if (rows.length < 1) {
     const old = MS.getProgress(0, new Date());
@@ -143,6 +143,9 @@ export default  function WordScreen(props) {
   const [words, setWords] = React.useState(data);
   const [wordNow, setWordNow] = React.useState(0);
   const [word, setWord] = React.useState(words[0]);
+  const [hiddenMean, setHiddenMean] = React.useState(true);
+  const [hiddenButtonGroup, setHiddenButtonGroup] = React.useState(true);
+
 
 
   let _listView;
@@ -158,6 +161,7 @@ export default  function WordScreen(props) {
       Alert.alert('恭喜','单词已背诵完毕');
     }else{
       setWord(words[wordNow])
+      hidenWordHiddenButtonGroup();
     }
 
   },[wordNow])
@@ -166,42 +170,63 @@ export default  function WordScreen(props) {
     word.audio != undefined ? playSound(word.audio.us) : null;
   }, [word])
 
-  const nextWord = (score) => {
+
+
+  const showWordHiddenButtonGroup =()=>{
+    setHiddenMean(false);
+    setHiddenButtonGroup(false);
+  }
+
+  const  hidenWordHiddenButtonGroup =()=>{
+    setHiddenMean(true);
+    setHiddenButtonGroup(true);
+  }
+  const nextWord =(score)=>{
     addWord(word,score)
     setWordNow(wordNow + 1);
     _listView.scrollTo({ y: 0, animated: false })
-
   }
 
   return (
     <Layout style={styles.container}>
       <TopNavigation title='熟悉单词'/>
       <ScrollView
-      ref={ref => _listView = ref}
+        ref={ref => _listView = ref}
         style={styles.container}
         contentContainerStyle={{}}>
       <Text 
         style={styles.titleLabel}
         category='h1'>{word.title}
       </Text>
-      <Phsym  data={word.phsym} />
-      <Define data={word.cdef} />
-      <Divider/>
-      <Sens data={word.sens} />
+        {
+        hiddenMean ? <TouchableOpacity onPress ={()=>{
+          showWordHiddenButtonGroup();
+        }} style={styles.contentBack}></TouchableOpacity> :
+          (<View>
+            <Phsym data={word.phsym} />
+            <Define data={word.cdef} />
+            <Divider />
+            <Sens data={word.sens} />
+          </View>) 
+        }
       </ScrollView>
-      <View  style={styles.tabBarInfoContainer}>
-        <View style={styles.buttonGroup}>
-          <Button  style={styles.button} onPress={()=>{
-            nextWord(0);
-            }} appearance='filled'>陌生</Button>
+      {
+        hiddenButtonGroup ? null :
+          <View style={styles.tabBarInfoContainer}>
+            <View style={styles.buttonGroup}>
+              <Button style={styles.button} onPress={() => {
+                nextWord(0);
+              }} appearance='filled'>陌生</Button>
 
-          <Button style={styles.button} appearance='outline' onPress={()=>{
-            nextWord(2);
-          }}
-            >熟悉</Button>
-          <Button style={styles.button} appearance='ghost'>移除</Button>
-        </View>
-      </View>
+              <Button style={styles.button} appearance='outline' onPress={() => {
+                nextWord(2);
+              }}
+              >熟悉</Button>
+              <Button style={styles.button} appearance='ghost'>移除</Button>
+            </View>
+          </View>
+      }
+      
     </Layout>
   );
 }
@@ -750,6 +775,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  contentBack:{
+    width:Dimensions.get('window').width,
+    height:Dimensions.get('window').height,
+  },
+  nextButton: {
+    width:100,
+    position:"absolute",
+    bottom: 20,
+    right: 20,
+  },
   list: {
     flex: 1,
   },
@@ -761,7 +796,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   button: {
-    margin: 10
+    margin: 15
   },
   tabBarInfoContainer: {
     position: 'absolute',
