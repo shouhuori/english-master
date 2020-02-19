@@ -14,7 +14,7 @@ import {Audio} from 'expo-av';
 import ms from '../components/ms'
 import * as SQLite from 'expo-sqlite';
 
-const db  = SQLite.openDatabase('beDict.db');
+const db  = SQLite.openDatabase('dict.db');
 const MS = new ms();
 
 const DICT_LINK = 'http://localhost:3000/find/token';
@@ -147,13 +147,22 @@ export default  function WordScreen(props) {
   const [hiddenButtonGroup, setHiddenButtonGroup] = React.useState(true);
   let title = wordNow+1 +'/' + words.length;
 
-
+    db.transaction(
+      tx => {
+        tx.executeSql("show create table  words ", [], (_, { rows }) =>
+        console.log(rows)
+        );
+      }
+    )
 
   let _listView;
 
   useEffect(()=>{
     db.transaction(tx => {
       tx.executeSql("create table if not exists words (id integer primary key not null,progress int,due_date text,title varchar,content text,update_date varchar,create_date varchar,status int);");
+      tx.executeSql("select * from words; ", [], (_, { rows }) =>
+        console.log(rows)
+        );
     })
   },[])
 

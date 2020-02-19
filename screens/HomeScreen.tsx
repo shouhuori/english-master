@@ -12,8 +12,10 @@ import {
 } from 'react-native';
 
 
+
 export default function HomeScreen(props) {
-  console.log('test');
+
+
   const [value, setValue] = React.useState('');
   return (
     <Layout style={styles.container}>

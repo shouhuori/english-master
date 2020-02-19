@@ -6,6 +6,21 @@ import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { ApplicationProvider, Layout,Text } from '@ui-kitten/components';
 import { mapping, light as darkTheme } from '@eva-design/eva';
+import * as FileSystem from 'expo-file-system';
+
+// 检查数据库是否存在，不存在则下载
+FileSystem.downloadAsync(
+  'http://192.168.2.211:8080/wordfeq.db',
+  FileSystem.documentDirectory + 'SQLite/dict.db'
+)
+.then(({ uri }) => {
+  console.log('Finished downloading to ', uri)
+})
+.catch(error => {
+  console.error(error);
+})
+
+
 
 // import AppNavigator from './navigation/AppNavigator';
 import {AppNavigator} from './navigation/NewNavigator';

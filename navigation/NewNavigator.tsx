@@ -18,7 +18,7 @@ const HomeStack = createStackNavigator(
 
 const OrdersScreen = () => (
   <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-    <Text category='h1'>设置</Text>
+    <Text category='h1'>单词</Text>
   </Layout>
 );
 const SettingScreen = () => (
