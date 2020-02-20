@@ -27,7 +27,7 @@ export default function SettingsScreen(props) {
       </Text>
       <View style={styles.testButtonContainer}>
         <Button onPress={() => {
-         props.navigation.navigate('Word')
+         props.navigation.navigate('WordTest')
         }}>测试</Button>
       </View>
     </Layout>

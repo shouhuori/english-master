@@ -5,6 +5,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { BottomNavigation, BottomNavigationTab, Layout, Text } from '@ui-kitten/components';
 import HomeScreen from '../screens/HomeScreen';
 import WordScreen from '../screens/WordScreen';
+import WordTestScreen from '../screens/WordTestScreen';
 import SettingScreen from '../screens/SettingsScreen';
 import {StyleSheet} from 'react-native';
 
@@ -20,7 +21,7 @@ const HomeStack = createStackNavigator(
 const SettingStack = createStackNavigator(
   {
     Setting: SettingScreen,
-    Word: WordScreen,
+    WordTest: WordTestScreen,
   },
 );
 
