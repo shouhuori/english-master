@@ -5,6 +5,8 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { BottomNavigation, BottomNavigationTab, Layout, Text } from '@ui-kitten/components';
 import HomeScreen from '../screens/HomeScreen';
 import WordScreen from '../screens/WordScreen';
+import WordTestScreen from '../screens/WordTestScreen';
+import SettingScreen from '../screens/SettingsScreen';
 import {StyleSheet} from 'react-native';
 
 
@@ -16,14 +18,16 @@ const HomeStack = createStackNavigator(
 );
 
 
+const SettingStack = createStackNavigator(
+  {
+    Setting: SettingScreen,
+    WordTest: WordTestScreen,
+  },
+);
+
 const OrdersScreen = () => (
   <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-    <Text category='h1'>设置</Text>
-  </Layout>
-);
-const SettingScreen = () => (
-  <Layout style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-    <Text category='h1'>设置</Text>
+    <Text category='h1'>单词</Text>
   </Layout>
 );
 
@@ -48,7 +52,7 @@ const TabBarComponent = ({ navigation }) => {
 const TabNavigator = createBottomTabNavigator({
   HomeStack,
   Orders: OrdersScreen,
-  Setting: SettingScreen,
+  SettingStack,
 }, {
   tabBarComponent: TabBarComponent,
 });
