@@ -1,11 +1,10 @@
 import React from 'react';
-import { Layout,Button ,Input} from '@ui-kitten/components';
+import {Text, Layout,Button ,Input} from '@ui-kitten/components';
 import {
   Image,
   Platform,
   ScrollView,
   StyleSheet,
-  Text,
   TouchableOpacity,
   Alert,
   View,
@@ -14,9 +13,8 @@ import {
 
 
 export default function HomeScreen(props) {
-
-
   const [value, setValue] = React.useState('');
+  const [text, setText] = React.useState('1917 is a 2019 war film directed and produced by Sam Mendes, who wrote the screenplay with Krysty Wilson-Cairns. The film stars George MacKay, Dean-Charles Chapman, Mark Strong, Andrew Scott, Richard Madden, Claire Duburcq, with Colin Firth, and Benedict Cumberbatch. The film is based in part on an account told to Mendes by his paternal grandfather, Alfred Mendes,[3] and it chronicles the story of two young British soldiers at the height of WWI during Spring 1917 who have been given a mission to deliver a message which will warn of an ambush during one of the skirmishes soon after the German retreat to the Hindenburg Line during Operation Alberich.');
   return (
     <Layout style={styles.container}>
       <ScrollView
@@ -24,12 +22,7 @@ export default function HomeScreen(props) {
         contentContainerStyle={styles.contentContainer}>
         <View style={styles.welcomeContainer}>
         </View>
-        <Input
-          multiline={true}
-          placeholder='复制文字到这里'
-          value={value}
-          onChangeText={setValue}
-        />
+      <Text  style={{ fontFamily: 'gentium-book',fontSize:20,lineHeight:25}} category='p1'>{text}</Text>
       </ScrollView>
 
       <View style={styles.tabBarInfoContainer}>
