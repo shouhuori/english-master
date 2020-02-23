@@ -17,7 +17,7 @@
     "@expo/vector-icons": "~10.0.0",
     "@react-navigation/web": "~1.0.0-alpha.9",
     "@ui-kitten/components": "^4.3.2",
-    "@ui-kitten/eva-icons": "^4.3.2",
+    "@ui-kitten/eva-icons": "^4.4.0",
     "@xmpp/client": "^0.10.0",
     "@xmpp/debug": "^0.10.0",
     "axios": "^0.19.2",

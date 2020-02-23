@@ -1366,10 +1366,10 @@
     hoist-non-react-statics "^3.2.1"
     lodash.merge "^4.6.1"
 
-"@ui-kitten/eva-icons@^4.3.2":
-  version "4.3.2"
-  resolved "https://registry.npm.taobao.org/@ui-kitten/eva-icons/download/@ui-kitten/eva-icons-4.3.2.tgz#2c6810c9649903b529acf96a3c9c377f7373cf15"
-  integrity sha1-LGgQyWSZA7UprPlqPJw3f3NzzxU=
+"@ui-kitten/eva-icons@^4.4.0":
+  version "4.4.0"
+  resolved "https://registry.npm.taobao.org/@ui-kitten/eva-icons/download/@ui-kitten/eva-icons-4.4.0.tgz#49c41a1cca9a9a4815374b9dc4f94317910616cf"
+  integrity sha1-ScQaHMqamkgVN0udxPlDF5EGFs8=
   dependencies:
     react-native-eva-icons "1.1.0"
 
