@@ -7,6 +7,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { ApplicationProvider, Layout,Text } from '@ui-kitten/components';
 import { mapping, light as darkTheme } from '@eva-design/eva';
 import * as FileSystem from 'expo-file-system';
+import { AppearanceProvider } from 'react-native-appearance';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 // 检查数据库是否存在，不存在则下载
 FileSystem.downloadAsync(
@@ -38,14 +40,16 @@ export default function App(props) {
     );
   } else {
     return (
-      <ApplicationProvider mapping={mapping} theme={darkTheme}>
-        <Layout style={{ flex: 1 }}>
-          <View style={styles.container}>
-            {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-            <AppNavigator />
-          </View>
-        </Layout>
-      </ApplicationProvider>
+      <React.Fragment>
+        <AppearanceProvider>
+          <ApplicationProvider mapping={mapping} theme={darkTheme}>
+            <SafeAreaProvider>
+              <StatusBar  barStyle={"dark-content"} />
+              <AppNavigator />
+            </SafeAreaProvider>
+          </ApplicationProvider>
+        </AppearanceProvider>
+      </React.Fragment>
     );
   }
 }

@@ -182,6 +182,10 @@ export default  function WordScreen(props) {
   }, [word])
 
 
+  const onBackPress=()=>{
+    props.navigation.goBack();
+
+  }
 
   const showWordHiddenButtonGroup =()=>{
     setHiddenMean(false);
@@ -197,10 +201,20 @@ export default  function WordScreen(props) {
     setWordNow(wordNow + 1);
     _listView.scrollTo({ y: 0, animated: false })
   }
+  const renderLeftControl = () => {
+    return (
+      <Text style={{}} onPress={onBackPress}>返回</Text>
+    )
+  }
 
   return (
     <Layout style={styles.container}>
-      <TopNavigation title={title}/>
+      <TopNavigation 
+      style={{marginTop:15,marginLeft:10,marginRight:10}}
+      title={title}
+      alignment='center'
+      leftControl={renderLeftControl()}
+      />
       <ScrollView
         ref={ref => _listView = ref}
         style={styles.container}
@@ -244,6 +258,7 @@ export default  function WordScreen(props) {
 
 WordScreen.navigationOptions = {
   header: null,
+  tabBarVisible: false,
 };
 
 const data = [
@@ -833,11 +848,15 @@ const styles = StyleSheet.create({
     height: 240,
   },
   titleLabel: {
+    fontFamily:'gentium-book',
     marginHorizontal: 24,
     marginVertical: 16,
   },
   phsym:{
     marginHorizontal: 24,
+    fontSize:17,
+    lineHeight:25,
+    fontFamily:'gentium-book',
     marginVertical: 6,
   },
   descriptionLabel: {
