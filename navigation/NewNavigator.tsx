@@ -6,6 +6,7 @@ import { BottomNavigation, BottomNavigationTab, Layout, Text } from '@ui-kitten/
 import HomeScreen from '../screens/HomeScreen';
 import WordScreen from '../screens/WordScreen';
 import WordTestScreen from '../screens/WordTestScreen';
+import ReadingScreen from '../screens/ReadingScreen';
 import SettingScreen from '../screens/SettingsScreen';
 import {StyleSheet} from 'react-native';
 
@@ -14,6 +15,7 @@ const HomeStack = createStackNavigator(
   {
     Home: HomeScreen,
     Word: WordScreen,
+    Reading: ReadingScreen,
   },
 );
 
